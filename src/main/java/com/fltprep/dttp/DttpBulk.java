@@ -1,4 +1,4 @@
-package dttp;
+package com.fltprep.dttp;
 
 public class DttpBulk {
     public static void dloadMetaFile(String dest_dir) {
@@ -8,5 +8,9 @@ public class DttpBulk {
     public static String getCurrentCycle() {
         //**todo**//
         return "";
+    }
+
+    public static String helloWorld() {
+        return "Hello World";
     }
 }
