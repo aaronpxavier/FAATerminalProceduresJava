@@ -1,7 +1,17 @@
+# Intellij
 .idea
 *.iml
-target
+*iws
+
+# Mac
+.DS_Store
+
 /.classpath
 /.project
 /.settings
 /out
+
+
+# Maven
+log/
+target/
