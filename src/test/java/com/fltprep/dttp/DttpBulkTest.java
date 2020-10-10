@@ -13,4 +13,17 @@ public class DttpBulkTest {
         String testString = tester.getCurrentCycle();
         assertEquals(true, testString.matches("[0-9]{6}"));
     }
+
+    @Test
+    @DisplayName("Test for DttpBulk.getFourDigitCycle()")
+    void getFourDigitCycle() {
+        String testString = tester.getFourDigitCycle();
+        assertEquals(true, testString.matches("[0-9]{4}"));
+    }
+
+//    @Test
+//    @DisplayName("Test for DttpBulk.dloadMetaFile")
+//    void dloadMetaFile() {
+//        tester.dloadMetaFile("./testdir");
+//    }
 }
