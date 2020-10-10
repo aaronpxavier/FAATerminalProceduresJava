@@ -1,27 +1,18 @@
 package com.fltprep.dttp;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Date;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 
-public class DttpBulk {
-    private static final int FAA_CYCLE_INTERVAL = 28;
+public class Dttp {
+    protected static final int FAA_CYCLE_INTERVAL = 28;
     public static final String FAA_CYCLE_REF_DATE_STRING = "2020-01-02";
     public static final Date FAA_CYCLE_REF_DATE = getFAARefDate();
-    private static final String META_FILE_URL = String.format("http://aeronav.faa.gov/d-tpp/%s/xml_data/d-tpp_Metafile.xml", getFourDigitCycle());
-    private static final String META_FILE_NAME = "d-tpp_Metafile.xml";
+    protected static final String META_FILE_URL = String.format("http://aeronav.faa.gov/d-tpp/%s/xml_data/d-tpp_Metafile.xml", getFourDigitCycle());
+    protected static final String META_FILE_NAME = "d-tpp_Metafile.xml";
 
     private static Date getFAARefDate() {
         Date refDate = null;
@@ -34,34 +25,6 @@ public class DttpBulk {
             e.printStackTrace();
         }
         return refDate;
-    }
-
-    private static void downloadFile(String url, File file) throws Exception {
-        HttpGet request = new HttpGet(url);
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
-        // add request headers
-        request.addHeader("custom-key", "mkyong");
-        request.addHeader(HttpHeaders.USER_AGENT, "JAVA");
-        System.out.println("Downloading " + file.getName() + "from " + url);
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            // Get HttpResponse Status
-            System.out.println(response.getStatusLine().toString());
-
-            HttpEntity entity = response.getEntity();
-            Header headers = entity.getContentType();
-            System.out.println(headers);
-
-            if (entity != null) {
-                InputStream is = entity.getContent();
-                FileOutputStream fos = new FileOutputStream(file);
-                int inByte;
-                while ((inByte = is.read()) != -1) {
-                    fos.write(inByte);
-                }
-                is.close();
-                fos.close();
-            }
-        }
     }
 
     public static Calendar getCycleCalendar() {
@@ -78,19 +41,6 @@ public class DttpBulk {
             resultTimeCal.add(Calendar.DAY_OF_MONTH, -FAA_CYCLE_INTERVAL);
 
         return resultTimeCal;
-    }
-
-    /**
-     *
-     * @param dest_dir Directory where you want to save the Metafile.xml from FAA d-tpp
-     **/
-    public static void dloadMetaFile(String dest_dir) {
-        File metaFile = new File(dest_dir + "/" + META_FILE_NAME);
-        try {
-            downloadFile(META_FILE_URL, metaFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -132,9 +82,13 @@ public class DttpBulk {
         return currentCycleString;
     }
 
+    public static void parseMetafile(File file) {
+
+    }
+
     public static void main(String args[]) {
         System.out.println(getFourDigitCycle());
-        //dloadMetaFile(".");
+        DttpDownloads.dloadMetaFile(".");
     }
 
 }

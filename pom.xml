@@ -81,7 +81,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.fltprep.dttp.DttpBulk</mainClass>
+                            <mainClass>com.fltprep.dttp.Dttp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

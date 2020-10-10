@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DttpBulkTest {
-    DttpBulk tester = new DttpBulk();
+    Dttp tester = new Dttp();
     @Test
     @DisplayName("Test for DttpBulk.getCurrentCycle()")
     void getCurrentCycle() {
