@@ -1,6 +1,16 @@
 package com.fltprep.dttp;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -82,13 +92,9 @@ public class Dttp {
         return currentCycleString;
     }
 
-    public static void parseMetafile(File file) {
-
-    }
-
     public static void main(String args[]) {
-        System.out.println(getFourDigitCycle());
-        DttpDownloads.dloadMetaFile(".");
+        ParseMetaFile.parseMetafile(new File("./d-tpp_Metafile.xml"));
+        //DttpDownloads.dloadMetaFile(".");
     }
 
 }
