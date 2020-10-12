@@ -14,16 +14,15 @@ public class Chart implements Comparable<Chart> {
     private String volume = null;
     private String cycle = null;
 
-    Chart() {}
+    public Chart() {}
 
     /**
      * @param chart - copy constructor.
      */
-    Chart(Chart chart) {
+    public Chart(Chart chart) {
         airportIdIcao = chart.airportIdIcao;
         airportId = chart.airportId;
         state = chart.state;
-        procedure = chart.procedure;
         pdfName = chart.pdfName;
         chartType = chart.chartType;
         chartName = chart.chartName;
@@ -46,11 +45,6 @@ public class Chart implements Comparable<Chart> {
     public void setStateName(String state) { this.state = state; }
 
     /**
-     * @param procedure - name of chart procedure
-     */
-    public void setProcedure(String procedure) { this.procedure = procedure; }
-
-    /**
      * @param pdfName - unique name for faa chart
      */
     public void setPdfName(String pdfName) { this.pdfName = pdfName; }
@@ -70,6 +64,10 @@ public class Chart implements Comparable<Chart> {
      */
     public void setVolume(String volume) { this.volume = volume; }
 
+    public void setCycle(String cycle) {
+        this.cycle = cycle;
+    }
+
     /**
      * @return - returns ICAO identifier for airport
      */
@@ -82,18 +80,22 @@ public class Chart implements Comparable<Chart> {
 
     public String getState() { return  state; }
 
-    public String getProcedure() { return  procedure; }
-
     public String getChartType() { return chartType; }
 
     public String getChartName() { return chartName; }
 
     public String getVolume() { return  volume; }
 
+    public String getCycle() { return cycle; }
+
     public String getPdfName() throws ChartException {
         if(pdfName == null)
             throw new ChartException("pdfName Field is not initialized");
         return pdfName;
+    }
+
+    public boolean hasIcao() {
+        return !(airportIdIcao == null || airportIdIcao.isEmpty());
     }
 
     @Override
@@ -114,6 +116,12 @@ public class Chart implements Comparable<Chart> {
     @Override
     public int compareTo(Chart chart) {
         return (this.pdfName).compareTo(chart.pdfName);
+    }
+
+    @Override
+    public String toString() {
+        return airportIdIcao + " " + airportId + " " + cycle + " " + state + " " +
+                pdfName + " " + chartType + " " + chartName + " " + volume;
     }
 
 }

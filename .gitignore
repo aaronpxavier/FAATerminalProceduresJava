@@ -19,3 +19,6 @@ target/
 #output
 d-tpp_Metafile.xml
 
+#Hide Credentials
+settings.xml
+src/main/resources/META-INF/persistence.xml

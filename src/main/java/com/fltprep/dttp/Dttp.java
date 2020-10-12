@@ -1,16 +1,6 @@
 package com.fltprep.dttp;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -44,11 +34,8 @@ public class Dttp {
         currentTime.setTime(new Date(System.currentTimeMillis()));
         resultTimeCal.setTime(FAA_CYCLE_REF_DATE);
 
-        while (resultTimeCal.getTime().compareTo(currentTime.getTime()) <= 0)
+        while (resultTimeCal.getTime().compareTo(currentTime.getTime()) < 0)
             resultTimeCal.add(Calendar.DAY_OF_MONTH, FAA_CYCLE_INTERVAL);
-
-        if (resultTimeCal.getTime().compareTo(FAA_CYCLE_REF_DATE) != 0)
-            resultTimeCal.add(Calendar.DAY_OF_MONTH, -FAA_CYCLE_INTERVAL);
 
         return resultTimeCal;
     }
@@ -93,8 +80,10 @@ public class Dttp {
     }
 
     public static void main(String args[]) {
-        ParseMetaFile.parseMetafile(new File("./d-tpp_Metafile.xml"));
         //DttpDownloads.dloadMetaFile(".");
+        ParseMetaFile.parseMetafile(new File("./d-tpp_Metafile.xml"));
+        System.out.println(getCurrentCycle());
+        System.out.println(getFourDigitCycle());
     }
 
 }
