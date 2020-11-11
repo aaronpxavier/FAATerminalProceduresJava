@@ -40,7 +40,7 @@ public class ParseMetaFile {
                             tempChart.setPdfName(pdfName);
                             tempChart.setVolume(cityElement.getAttribute("volume"));
                             chartMap.put(tempChart);
-                            System.out.println(i + " " + tempChart.toString());
+                            //System.out.println(i + " " + tempChart.toString());
                         }
                     }
                 }

@@ -1,13 +1,25 @@
 package com.fltprep.charts;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.LinkedList;
+import java.util.*;
 
-public class ChartMap implements Iterator<Chart> {
+class MapIterator implements Iterator<Chart> {
+    private Iterator<Map.Entry<String, Chart>> iterator;
+    MapIterator(Iterator<Map.Entry<String, Chart>> iterator) {
+        this.iterator = iterator;
+    }
+
+    public boolean hasNext() {
+        return iterator.hasNext();
+    }
+
+    public Chart next() {
+        Map.Entry<String, Chart> chartMapSet = iterator.next();
+        return chartMapSet.getValue();
+    }
+}
+
+public class ChartMap implements Iterable<Chart> {
     private Map<String, Chart> chartMap = new HashMap<String, Chart>();
-    private Iterator iterator = chartMap.entrySet().iterator();
 
     public ChartMap() {}
 
@@ -21,7 +33,7 @@ public class ChartMap implements Iterator<Chart> {
         }
     }
 
-    public ChartMap(LinkedList<Chart> chartList) {
+    public ChartMap(List<Chart> chartList) {
         for(Chart chart: chartList) {
             try {
                 chartMap.put(chart.getPdfName(), chart);
@@ -29,6 +41,10 @@ public class ChartMap implements Iterator<Chart> {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Iterator<Chart> iterator() {
+        return new MapIterator(chartMap.entrySet().iterator());
     }
 
     public void put(Chart chart) {
@@ -45,15 +61,6 @@ public class ChartMap implements Iterator<Chart> {
 
     public boolean hasChart(String pdfName) {
         return chartMap.containsKey(pdfName);
-    }
-
-    public boolean hasNext() {
-        return iterator.hasNext();
-    }
-
-    public Chart next() {
-        Map.Entry<String, Chart> chartMapSet = (Map.Entry<String, Chart>) iterator.next();
-        return chartMapSet.getValue();
     }
 
 }

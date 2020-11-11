@@ -1,6 +1,5 @@
 package com.fltprep.dttp;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -27,6 +26,7 @@ public class Dttp {
         return refDate;
     }
 
+    //returns - Calendar with end of cycle date.
     public static Calendar getCycleCalendar() {
         Calendar currentTime = Calendar.getInstance();
         Calendar resultTimeCal = Calendar.getInstance();
@@ -34,7 +34,7 @@ public class Dttp {
         currentTime.setTime(new Date(System.currentTimeMillis()));
         resultTimeCal.setTime(FAA_CYCLE_REF_DATE);
 
-        while (resultTimeCal.getTime().compareTo(currentTime.getTime()) < 0)
+        while (resultTimeCal.getTime().compareTo(currentTime.getTime()) <= 0)
             resultTimeCal.add(Calendar.DAY_OF_MONTH, FAA_CYCLE_INTERVAL);
 
         return resultTimeCal;
@@ -45,6 +45,7 @@ public class Dttp {
      */
     public static String getCurrentCycle() {
         Calendar resultTimeCal = (GregorianCalendar) getCycleCalendar();
+        resultTimeCal.add(Calendar.DAY_OF_MONTH, -FAA_CYCLE_INTERVAL);
         int month;
         int year;
         int day;
@@ -55,8 +56,8 @@ public class Dttp {
         year = resultTimeCal.get(resultTimeCal.YEAR);
 
         currentCycleString = String.valueOf(year).substring(2);
-        currentCycleString += day < 10 ? "0" + String.valueOf(day) : String.valueOf(day);
         currentCycleString += month < 10 ? "0" + String.valueOf(month) : String.valueOf(month);
+        currentCycleString += day < 10 ? "0" + String.valueOf(day) : String.valueOf(day);
 
         return currentCycleString;
     }
@@ -80,10 +81,7 @@ public class Dttp {
     }
 
     public static void main(String args[]) {
-        //DttpDownloads.dloadMetaFile(".");
-        ParseMetaFile.parseMetafile(new File("./d-tpp_Metafile.xml"));
-        System.out.println(getCurrentCycle());
-        System.out.println(getFourDigitCycle());
+        DttpDownloads.dloadPdfFiles("./dttp_pdfs");
     }
 
 }

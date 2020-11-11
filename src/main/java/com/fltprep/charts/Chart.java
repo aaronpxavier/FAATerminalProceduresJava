@@ -1,18 +1,36 @@
 package com.fltprep.charts;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Arun Mavumkal
  */
-public class Chart implements Comparable<Chart> {
-    private String airportIdIcao = null;
-    private String airportId = null;
-    private String state = null;
-    private String procedure = null;
+@Entity
+@Table(name = "chart")
+public class Chart implements Comparable<Chart>, Serializable {
+    @Id
+    @Column(name = "pdf_name", unique = true)
     private String pdfName = null;
+    @Column(name = "airport_id_icao")
+    private String airportIdIcao = null;
+    @Column(name = "airport_id")
+    private String airportId = null;
+    @Column(name = "state")
+    private String state = null;
+    @Column(name = "chart_type")
     private String chartType = null;
+    @Column(name = "chart_name")
     private String chartName = null;
+    @Column(name = "volume")
     private String volume = null;
+    @Column(name = "cycle")
     private String cycle = null;
+
+    private static final long serialVersionUID = 1L;
 
     public Chart() {}
 
@@ -80,6 +98,9 @@ public class Chart implements Comparable<Chart> {
 
     public String getState() { return  state; }
 
+    /**
+     * @return 
+     */
     public String getChartType() { return chartType; }
 
     public String getChartName() { return chartName; }
