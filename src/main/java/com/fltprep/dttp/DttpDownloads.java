@@ -86,7 +86,7 @@ public class DttpDownloads extends Dttp {
             String fileName = filePre + getCurrentCycle() + ".zip";
             File file = new File(destDir + "/" + fileName);
             try {
-                downloadFile("https://aeronav.faa.gov/upload_313-d/terminal/" + fileName, file);
+                downloadFile(CHART_FILES_URL + "/" + fileName, file);
                 unzipPdfFiles(destDir, fileName);
                 new File(fileName).delete();
             } catch (Exception e) {
